@@ -146,3 +146,4 @@
 /Users/ethan/RiderProjects/Mission11_Wood/backend/Mission11_Wood/Mission11_Wood/obj/Debug/net10.0/Mission11_Wood.pdb
 /Users/ethan/RiderProjects/Mission11_Wood/backend/Mission11_Wood/Mission11_Wood/obj/Debug/net10.0/Mission11_Wood.genruntimeconfig.cache
 /Users/ethan/RiderProjects/Mission11_Wood/backend/Mission11_Wood/Mission11_Wood/obj/Debug/net10.0/ref/Mission11_Wood.dll
+/Users/ethan/RiderProjects/Mission11_Wood/backend/Mission11_Wood/Mission11_Wood/obj/Debug/net10.0/Mission11_Wood.sourcelink.json
