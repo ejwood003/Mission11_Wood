@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Mission11_Wood")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+5f290a65ce8b7536187224846b2e03e584d8107d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+104da24a127792e9e4a9e26b81d06d850f4b1df6")]
 [assembly: System.Reflection.AssemblyProductAttribute("Mission11_Wood")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Mission11_Wood")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
