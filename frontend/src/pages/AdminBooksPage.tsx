@@ -19,7 +19,7 @@ const AdminBooksPage = () => {
     useEffect(() => {
         const loadBooks = async () => {
             try {
-                const data = await fetchBooks(pageSize, pageNum,[]);
+                const data = await fetchBooks(pageSize, pageNum, true, []);
                 setBooks(data.books);
                 setTotalPages(Math.ceil(data.totalNumBooks / pageSize))
             } catch (err) {
@@ -64,7 +64,7 @@ const AdminBooksPage = () => {
                 <NewBookForm 
                     onSuccess={() => {
                         setShowForm(false); 
-                        fetchBooks(pageSize, pageNum, []).then((data) => 
+                        fetchBooks(pageSize, pageNum, true, []).then((data) => 
                             setBooks(data.books)
                         );
                     }}
@@ -75,7 +75,7 @@ const AdminBooksPage = () => {
             {editingBook && (
                 <EditBookForm book={editingBook} onSuccess={() => {
                     setEditingBook(null);
-                    fetchBooks(pageSize,pageNum,[]).then((data) => setBooks(data.books));
+                    fetchBooks(pageSize,pageNum, true, []).then((data) => setBooks(data.books));
                 }}
                 onCancel={() => setEditingBook(null)}
                 />

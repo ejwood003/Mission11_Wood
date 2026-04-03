@@ -26,7 +26,7 @@ function BookList ({selectedCategories}: {selectedCategories: string[]}) {
         const loadBooks = async () => {
             try{
                 setLoading(true);
-                const data = await fetchBooks(pageSize, pageNum, selectedCategories, sortTitleAsc);
+                const data = await fetchBooks(pageSize, pageNum, sortTitleAsc, selectedCategories);
               
                 setBooks(data.books);
                 setTotalPages(Math.ceil(data.totalNumBooks / pageSize))

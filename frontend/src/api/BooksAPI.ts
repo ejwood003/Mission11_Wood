@@ -10,8 +10,8 @@ const API_URL = 'https://mission13-wood-backend-hka8hqdmfubnhvgd.canadacentral-0
 export const fetchBooks = async (
     pageSize: number,
     pageNum: number,
-    selectedCategories: string[],
-    sortTitleAsc: boolean
+    sortTitleAsc: boolean,
+    selectedCategories: string[]
 ): Promise<FetchBooksResponse> => {
     try {
         const categoryParams = selectedCategories
