@@ -13,7 +13,13 @@ builder.Services.AddDbContext<BookstoreContext>(options =>
     options.UseSqlite(builder.Configuration.GetConnectionString("BookConnection")));
 
 // CORS so the React dev server can call this API from the browser.
-builder.Services.AddCors();
+builder.Services.AddCors(options =>
+    options.AddPolicy("AllowReactApp",
+    policy => {
+        policy.AllowAnyOrigin()
+            .AllowAnyMethod()
+            .AllowAnyHeader();
+    }));
 
 var app = builder.Build();
 
@@ -23,7 +29,7 @@ if (app.Environment.IsDevelopment())
 }
 
 // Allow requests from the Vite/React app origin.
-app.UseCors(x => x.WithOrigins("http://localhost:3000"));
+app.UseCors("AllowReactApp");
 
 app.UseHttpsRedirection();
 

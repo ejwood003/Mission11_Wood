@@ -26,7 +26,7 @@ public class BookstoreController : ControllerBase
     /// <param name="pageNum">1-based page index.</param>
     /// <param name="sortTitleAsc">When true, sort by title ascending; when false, descending.</param>
     [HttpGet("AllBooks")]
-    public IActionResult GetProjects(int pageHowMany = 5, int pageNum = 1, bool sortTitleAsc = true, [FromQuery] List<string>? categories = null)
+    public IActionResult GetBooks(int pageHowMany = 5, int pageNum = 1, bool sortTitleAsc = true, [FromQuery] List<string>? categories = null)
     {
         var query = _bookContext.Books.AsQueryable();
 
@@ -79,4 +79,50 @@ public class BookstoreController : ControllerBase
 
         return Ok(book);
     }
+
+
+    [HttpPost("AddBook")]
+    public IActionResult AddBook([FromBody] Book newBook)
+    {
+        _bookContext.Books.Add(newBook);
+        _bookContext.SaveChanges();
+        return Ok(newBook);
+    }
+
+    [HttpPut("UpdateBook/{bookId}")]
+    public IActionResult UpdateBook(int bookId, [FromBody] Book updatedBook)
+    {
+        var existingBook = _bookContext.Books.Find(bookId);
+
+        existingBook.Title = updatedBook.Title;
+        existingBook.Author = updatedBook.Author;
+        existingBook.Publisher = updatedBook.Publisher;
+        existingBook.Isbn = updatedBook.Isbn;
+        existingBook.Classification = updatedBook.Classification;
+        existingBook.Category = updatedBook.Category;
+        existingBook.PageCount = updatedBook.PageCount;
+        existingBook.Price = updatedBook.Price;
+
+        _bookContext.Books.Update(existingBook);
+        _bookContext.SaveChanges();
+
+        return Ok(existingBook);
+    }
+
+    [HttpDelete("DeleteBook/{bookId}")]
+    public IActionResult DeleteBook(int bookId)
+    {
+        var book = _bookContext.Books.Find(bookId);
+
+        if (book == null)
+        {
+            return NotFound(new {message = "Book not found"});
+        }
+
+        _bookContext.Books.Remove(book);
+        _bookContext.SaveChanges();
+
+        return NoContent();
+    }
+
 }
