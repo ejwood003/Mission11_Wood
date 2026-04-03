@@ -1,0 +1,4 @@
+{
+    "appService.defaultWebAppToDeploy": "/subscriptions/2708565c-4e75-4334-9168-cd8ab1815ac9/resourceGroups/appsvc_windows_canadacentral/providers/Microsoft.Web/sites/Mission13-Wood-Backend",
+    "appService.deploySubpath": "backend/Mission11_Wood/Mission11_Wood/publish"
+}
