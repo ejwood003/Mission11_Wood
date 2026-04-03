@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import type { Book } from '../types/Book.ts'
 import { useNavigate } from "react-router-dom";
 import Pagination from "./Pagination.tsx";
+import { fetchBooks } from "../api/BooksAPI.ts";
 
 /**
  * Book catalog: fetches paginated rows from the API, supports sort by title and page size.
@@ -12,33 +13,35 @@ function BookList ({selectedCategories}: {selectedCategories: string[]}) {
     const [pageSize, setPageSize] = useState<number>(5);
     const [pageNum, setPageNum] = useState<number>(1);
     // Total rows in the database (used for page count and labels).
-    const [totalItems, setTotalItems] = useState<number>(0);
     const [totalPages, setTotalPages] = useState<number>(0);
     // Matches API query param sortTitleAsc: true = A–Z, false = Z–A.
     const [sortTitleAsc, setSortTitleAsc] = useState<boolean>(true);
     // Controls Bootstrap-style details modal for the selected card.
     const [selectedBook, setSelectedBook] = useState<Book | null>(null);
     const navigate = useNavigate();
+    const [error, setError] = useState<string | null> (null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        const fetchBooks = async () => {
-
-            const categoryParams = selectedCategories
-                .map((cat) => `categories=${encodeURIComponent(cat)}`)
-                .join('&');
+        const loadBooks = async () => {
+            try{
+                setLoading(true);
+                const data = await fetchBooks(pageSize, pageNum, selectedCategories, sortTitleAsc);
+              
+                setBooks(data.books);
+                setTotalPages(Math.ceil(data.totalNumBooks / pageSize))
+            } catch (error) {
+                setError((error as Error).message)
+            } finally {
+                setLoading(false)
+            }
             
-            const response = await fetch(
-                `https://localhost:5000/Bookstore/AllBooks?pageHowMany=${pageSize}&pageNum=${pageNum}&sortTitleAsc=${sortTitleAsc}${selectedCategories.length ? `&${categoryParams}` : ''}`
-            );
-            const data = await response.json();
-            setBooks(data.books);
-            setTotalItems(data.totalNumBooks);
-            // Use server count from this response so page math is not stale (closure issue with totalItems).
-            setTotalPages(Math.ceil(totalItems / pageSize));
         };
-        fetchBooks();
-    }, [pageSize, pageNum, totalItems, sortTitleAsc, selectedCategories]);
+        loadBooks();
+    }, [pageSize, pageNum, sortTitleAsc, selectedCategories]);
 
+    if (loading) return <p>Loading books...</p>
+    if (error) return <p className="text-red-500">Error: {error}</p>;
     return (
         <>
             {/* Sort by title — server applies OrderBy before Skip/Take */}

@@ -10,7 +10,8 @@ const API_URL = 'https://mission13-wood-backend-hka8hqdmfubnhvgd.canadacentral-0
 export const fetchBooks = async (
     pageSize: number,
     pageNum: number,
-    selectedCategories: string[]
+    selectedCategories: string[],
+    sortTitleAsc: boolean
 ): Promise<FetchBooksResponse> => {
     try {
         const categoryParams = selectedCategories
@@ -18,7 +19,7 @@ export const fetchBooks = async (
             .join('&');
 
         const response = await fetch(
-            `${API_URL}/AllBooks?pageHowMany=${pageSize}&pageNum=${pageNum}${selectedCategories.length ? `&${categoryParams}` : ''}`
+            `${API_URL}/AllBooks?pageHowMany=${pageSize}&pageNum=${pageNum}&sortTitleAsc=${sortTitleAsc}${selectedCategories.length ? `&${categoryParams}` : ''}`
         );
 
         if (!response.ok) {
