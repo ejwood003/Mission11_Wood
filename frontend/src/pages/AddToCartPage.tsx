@@ -17,7 +17,7 @@ function AddToCartPage() {
         const loadBook = async () => {
             if (!bookId) return;
             // Pull fresh book data so cart pricing cannot be typed/overridden by the user.
-            const response = await fetch(`https://localhost:5000/Bookstore/Book/${bookId}`);
+            const response = await fetch(`https://mission13-wood-backend-hka8hqdmfubnhvgd.canadacentral-01.azurewebsites.net/Bookstore/Book/${bookId}`);
             if (!response.ok) return;
             const data = (await response.json()) as Book;
             setBook(data);
